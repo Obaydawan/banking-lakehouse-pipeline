@@ -5,3 +5,17 @@ __pycache__/
 *.pyc
 .env
 dbt_project/logs/
+# Airflow
+airflow/logs/
+airflow/config/
+
+# dbt
+dbt_project/profiles/.user.yml
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
