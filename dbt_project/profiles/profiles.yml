@@ -1,0 +1,7 @@
+transactsafe:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: '/opt/transactsafe/bronze/bronze.duckdb'
+      threads: 4
