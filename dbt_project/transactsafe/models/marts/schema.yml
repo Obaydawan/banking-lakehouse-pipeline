@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: fct_flagged_transactions
+    description: "Transactions flagged by one or more fraud detection rules: velocity, geographic anomaly, or statistical outlier."
+    columns:
+      - name: transaction_id
+        description: "Primary key, references stg_transactions."
+        tests:
+          - unique
+          - not_null
+      - name: is_flagged
+        description: "True if the transaction matched at least one fraud rule (always true in this table, since it's pre-filtered)."
+
+  - name: dim_account_risk_scores
+    description: "One row per account, aggregating flagged transaction activity into a 0-100 risk score and risk tier."
+    columns:
+      - name: account_id
+        description: "Primary key, references stg_accounts."
+        tests:
+          - unique
+          - not_null
+      - name: risk_score
+        description: "Weighted risk score from 0 to 100 based on flagged transaction density."
+      - name: risk_tier
+        description: "Categorical risk bucket: None, Low, Medium, High."
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['None', 'Low', 'Medium', 'High']
+
+  - name: mart_monthly_compliance_summary
+    description: "Monthly rollup of transaction volume and flagged activity, designed for compliance reporting."
+    columns:
+      - name: month
+        description: "The calendar month this row summarizes."
+        tests:
+          - unique
+          - not_null
