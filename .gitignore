@@ -4,3 +4,4 @@ bronze_source/
 __pycache__/
 *.pyc
 .env
+dbt_project/logs/
