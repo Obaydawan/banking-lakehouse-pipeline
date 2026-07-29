@@ -1,17 +1,6 @@
-# Python
 .venv/
+*.duckdb
+bronze_source/
 __pycache__/
 *.pyc
-
-# Jupyter
-.ipynb_checkpoints/
-
-# macOS
-.DS_Store
-
-# VS Code
-.vscode/
-
-# Generated data (optional)
-# Uncomment these if you don't want to store generated CSVs in Git
-# data_generator/bronze_source/
+.env
