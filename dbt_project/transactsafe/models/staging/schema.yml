@@ -1,0 +1,57 @@
+version: 2
+
+sources:
+  - name: bronze
+    schema: main
+    tables:
+      - name: bronze_customers
+      - name: bronze_accounts
+      - name: bronze_transactions
+
+models:
+  - name: stg_customers
+    description: "Cleaned, deduplicated customer records."
+    columns:
+      - name: customer_id
+        description: "Primary key for customers."
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_accounts
+    description: "Cleaned accounts, filtered to only those with a valid customer reference."
+    columns:
+      - name: account_id
+        description: "Primary key for accounts."
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Foreign key to stg_customers."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_customers')
+                field: customer_id
+
+  - name: stg_transactions
+    description: "Cleaned transactions: deduplicated, positive amounts only, valid account references only."
+    columns:
+      - name: transaction_id
+        description: "Primary key for transactions."
+        tests:
+          - unique
+          - not_null
+      - name: account_id
+        description: "Foreign key to stg_accounts."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_accounts')
+                field: account_id
+      - name: amount
+        description: "Transaction amount, must be positive."
+        tests:
+          - not_null
