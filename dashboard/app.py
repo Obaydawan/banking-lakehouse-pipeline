@@ -15,6 +15,7 @@ import duckdb
 import pandas as pd
 import plotly.express as px
 import streamlit as st
+from pathlib import Path
 
 st.set_page_config(
     page_title="TransactSafe — Fraud Detection Dashboard",
@@ -22,7 +23,11 @@ st.set_page_config(
     layout="wide",
 )
 
-DB_PATH = "../bronze/bronze.duckdb"
+# Resolve the database path relative to this script's own location, not the
+# current working directory — these differ between local runs (cwd = dashboard/)
+# and Streamlit Cloud (cwd = repo root), so a plain relative path breaks on deploy.
+BASE_DIR = Path(__file__).resolve().parent
+DB_PATH = str(BASE_DIR.parent / "bronze" / "bronze.duckdb")
 
 
 @st.cache_resource
