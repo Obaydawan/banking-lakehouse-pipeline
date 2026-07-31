@@ -1,0 +1,73 @@
+<svg viewBox="0 0 1200 640" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#5b6472"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="640" fill="#0d1117"/>
+
+  <text x="600" y="45" text-anchor="middle" fill="#e6edf3" font-size="26" font-weight="700">TransactSafe — Banking Fraud Detection Pipeline</text>
+  <text x="600" y="72" text-anchor="middle" fill="#8b949e" font-size="14">Bronze → Silver → Gold architecture with orchestration, testing, and live reporting</text>
+
+  <!-- Source -->
+  <rect x="40" y="140" width="150" height="90" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="115" y="175" text-anchor="middle" fill="#e6edf3" font-size="14" font-weight="600">Synthetic</text>
+  <text x="115" y="193" text-anchor="middle" fill="#e6edf3" font-size="14" font-weight="600">Data Generator</text>
+  <text x="115" y="212" text-anchor="middle" fill="#8b949e" font-size="11">Python + Faker</text>
+
+  <!-- Bronze -->
+  <rect x="250" y="140" width="150" height="90" rx="10" fill="#3a2a12" stroke="#c9820a" stroke-width="1.5"/>
+  <text x="325" y="180" text-anchor="middle" fill="#f0b429" font-size="15" font-weight="700">BRONZE</text>
+  <text x="325" y="200" text-anchor="middle" fill="#c9a876" font-size="11">Raw ingest</text>
+  <text x="325" y="215" text-anchor="middle" fill="#c9a876" font-size="11">+ audit columns</text>
+
+  <!-- Silver -->
+  <rect x="460" y="140" width="150" height="90" rx="10" fill="#1c2a3a" stroke="#4a90d9" stroke-width="1.5"/>
+  <text x="535" y="180" text-anchor="middle" fill="#79b8ff" font-size="15" font-weight="700">SILVER</text>
+  <text x="535" y="200" text-anchor="middle" fill="#9fc3e8" font-size="11">Cleaned, deduped,</text>
+  <text x="535" y="215" text-anchor="middle" fill="#9fc3e8" font-size="11">tested (dbt)</text>
+
+  <!-- Gold -->
+  <rect x="670" y="140" width="150" height="90" rx="10" fill="#1f3323" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="745" y="172" text-anchor="middle" fill="#56d364" font-size="15" font-weight="700">GOLD</text>
+  <text x="745" y="192" text-anchor="middle" fill="#9fd8a8" font-size="11">Fraud detection,</text>
+  <text x="745" y="207" text-anchor="middle" fill="#9fd8a8" font-size="11">risk scoring,</text>
+  <text x="745" y="222" text-anchor="middle" fill="#9fd8a8" font-size="11">compliance marts</text>
+
+  <!-- Dashboard -->
+  <rect x="880" y="140" width="150" height="90" rx="10" fill="#2a1c3a" stroke="#a371f7" stroke-width="1.5"/>
+  <text x="955" y="175" text-anchor="middle" fill="#d2a8ff" font-size="14" font-weight="600">Streamlit</text>
+  <text x="955" y="193" text-anchor="middle" fill="#d2a8ff" font-size="14" font-weight="600">Dashboard</text>
+  <text x="955" y="212" text-anchor="middle" fill="#c9a8e0" font-size="11">Live, public</text>
+
+  <!-- Arrows top row -->
+  <line x1="190" y1="185" x2="245" y2="185" stroke="#5b6472" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="400" y1="185" x2="455" y2="185" stroke="#5b6472" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="610" y1="185" x2="665" y2="185" stroke="#5b6472" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="820" y1="185" x2="875" y2="185" stroke="#5b6472" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Orchestration layer -->
+  <rect x="250" y="320" width="570" height="70" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="535" y="350" text-anchor="middle" fill="#e6edf3" font-size="15" font-weight="600">Apache Airflow — Scheduled Orchestration</text>
+  <text x="535" y="370" text-anchor="middle" fill="#8b949e" font-size="11">generate_data → load_bronze → dbt run → dbt test  (daily DAG, Docker Compose)</text>
+
+  <line x1="325" y1="230" x2="325" y2="315" stroke="#5b6472" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+  <line x1="535" y1="230" x2="535" y2="315" stroke="#5b6472" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+  <line x1="745" y1="230" x2="745" y2="315" stroke="#5b6472" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+
+  <!-- Testing + Docs layer -->
+  <rect x="250" y="430" width="270" height="70" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="385" y="460" text-anchor="middle" fill="#e6edf3" font-size="14" font-weight="600">dbt Tests</text>
+  <text x="385" y="480" text-anchor="middle" fill="#8b949e" font-size="11">29 tests — uniqueness, not-null, referential integrity</text>
+
+  <rect x="550" y="430" width="270" height="70" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="685" y="460" text-anchor="middle" fill="#e6edf3" font-size="14" font-weight="600">dbt Docs (GitHub Pages)</text>
+  <text x="685" y="480" text-anchor="middle" fill="#8b949e" font-size="11">Full lineage graph, publicly browsable</text>
+
+  <line x1="385" y1="390" x2="385" y2="425" stroke="#5b6472" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="685" y1="390" x2="685" y2="425" stroke="#5b6472" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Storage layer label -->
+  <text x="600" y="600" text-anchor="middle" fill="#6e7681" font-size="12">Storage: DuckDB + MotherDuck (cloud)  ·  Version control: Git/GitHub  ·  All stages containerized via Docker Compose</text>
+</svg>
