@@ -28,13 +28,13 @@ jobs:
       - name: Configure dbt profile for CI (DuckDB, local file, no secrets needed)
         run: |
           mkdir -p ~/.dbt
-          cat > ~/.dbt/profiles.yml << 'EOF'
+          cat > ~/.dbt/profiles.yml << EOF
           transactsafe:
             target: ci
             outputs:
               ci:
                 type: duckdb
-                path: ./ci_transactsafe.duckdb
+                path: $GITHUB_WORKSPACE/bronze/bronze.duckdb
                 threads: 4
           EOF
 
