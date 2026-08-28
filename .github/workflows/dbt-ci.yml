@@ -34,18 +34,20 @@ jobs:
                 path: ./ci_transactsafe.duckdb
                 threads: 4
           EOF
-        # NOTE: replace "transactsafe" above with whatever profile name your
-        # dbt_project.yml actually declares if it's different.
 
       - name: Install dbt packages (if you use any)
         run: dbt deps
+        working-directory: dbt_project/transactsafe
         continue-on-error: true
 
       - name: Seed source data
         run: dbt seed
+        working-directory: dbt_project/transactsafe
 
       - name: Run models
         run: dbt run
+        working-directory: dbt_project/transactsafe
 
       - name: Run tests
         run: dbt test
+        working-directory: dbt_project/transactsafe
