@@ -1,0 +1,51 @@
+name: dbt CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  dbt-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dbt
+        run: pip install dbt-core dbt-duckdb
+
+      - name: Configure dbt profile for CI (DuckDB, local file, no secrets needed)
+        run: |
+          mkdir -p ~/.dbt
+          cat > ~/.dbt/profiles.yml << 'EOF'
+          transactsafe:
+            target: ci
+            outputs:
+              ci:
+                type: duckdb
+                path: ./ci_transactsafe.duckdb
+                threads: 4
+          EOF
+        # NOTE: replace "transactsafe" above with whatever profile name your
+        # dbt_project.yml actually declares if it's different.
+
+      - name: Install dbt packages (if you use any)
+        run: dbt deps
+        continue-on-error: true
+
+      - name: Seed source data
+        run: dbt seed
+
+      - name: Run models
+        run: dbt run
+
+      - name: Run tests
+        run: dbt test
