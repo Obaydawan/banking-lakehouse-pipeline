@@ -19,6 +19,9 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Install project dependencies
+        run: pip install -r requirements.txt
+
       - name: Install dbt
         run: pip install dbt-core dbt-duckdb
 
@@ -35,14 +38,18 @@ jobs:
                 threads: 4
           EOF
 
+      - name: Generate synthetic data
+        run: python generate_data.py
+        working-directory: data_generator
+
+      - name: Load bronze layer
+        run: python load_bronze.py
+        working-directory: bronze
+
       - name: Install dbt packages (if you use any)
         run: dbt deps
         working-directory: dbt_project/transactsafe
         continue-on-error: true
-
-      - name: Seed source data
-        run: dbt seed
-        working-directory: dbt_project/transactsafe
 
       - name: Run models
         run: dbt run
