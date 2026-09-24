@@ -1,4 +1,4 @@
-# TransactSafe — Banking Fraud Detection Data Pipeline:
+# TransactSafe — Banking Fraud Detection Data Pipeline
 
 A production-style data engineering pipeline that ingests raw banking transaction data, cleans and validates it through a bronze/silver/gold medallion architecture, and surfaces rule-based fraud detection and risk scoring — orchestrated on a schedule, fully tested, and deployed live.
 
